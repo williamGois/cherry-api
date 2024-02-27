@@ -1,0 +1,50 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - postgres
+    networks:
+      - mynetwork
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    tty: true
+    environment:
+      - POSTGRES_DB=cherry
+      - POSTGRES_USER=cherry
+      - POSTGRES_PASSWORD=cherry
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+
+  cherry:
+    image: dpage/pgadmin4
+    container_name: cherry
+    ports:
+      - "15432:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: goiswilliam194@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 12345678
+    depends_on:
+      - postgres
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  pgdata:

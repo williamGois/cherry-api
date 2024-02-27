@@ -1,0 +1,1492 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Economizza Api",
+        "description": "Documentação da API",
+        "contact": {
+            "email": "goiswilliam194@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/accounts/user": {
+            "get": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Lista todas as contas de um usuário",
+                "operationId": "32135fc13484224902e8bad480ff8562",
+                "responses": {
+                    "200": {
+                        "description": "Contas encontradas"
+                    },
+                    "404": {
+                        "description": "Nenhuma conta encontrada"
+                    }
+                }
+            }
+        },
+        "/api/v1/accounts/{id}": {
+            "get": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Busca uma conta pelo ID",
+                "operationId": "92d5e52983a42663a671eadf91d4e2a3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Conta encontrada"
+                    },
+                    "404": {
+                        "description": "Conta não encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Atualiza uma conta existente",
+                "operationId": "844a6acb253c98ade45443ea753e38d5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "total_balance": {
+                                        "type": "number"
+                                    },
+                                    "bank_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Conta atualizada com sucesso"
+                    },
+                    "404": {
+                        "description": "Conta não encontrada"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Remove uma conta",
+                "operationId": "877f89765e65d756693a4414567d7e47",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Conta removida com sucesso"
+                    },
+                    "404": {
+                        "description": "Conta não encontrada"
+                    }
+                }
+            }
+        },
+        "/api/v1/accounts": {
+            "post": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Cria uma nova conta",
+                "operationId": "a9239744b44ef1f6de5609fbca09c53f",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "total_balance",
+                                    "bank_id"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "total_balance": {
+                                        "type": "number"
+                                    },
+                                    "bank_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Conta criada com sucesso"
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    }
+                }
+            }
+        },
+        "/api/v1/banks": {
+            "get": {
+                "tags": [
+                    "Banks"
+                ],
+                "summary": "Lista todos os bancos",
+                "operationId": "f895db2d67a930e29031e3083665697b",
+                "responses": {
+                    "200": {
+                        "description": "Lista de bancos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Bank"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Banks"
+                ],
+                "summary": "Cria um novo banco",
+                "operationId": "a6529d25c8cabb2af2f48136e81e0522",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "icon"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "icon": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Banco criado com sucesso"
+                    },
+                    "400": {
+                        "description": "Erro na solicitação"
+                    }
+                }
+            }
+        },
+        "/api/v1/banks/{id}": {
+            "delete": {
+                "tags": [
+                    "Banks"
+                ],
+                "summary": "Remove um banco",
+                "operationId": "b939565c18f7ce7c131bbc964c1583d9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do banco",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Banco removido com sucesso"
+                    },
+                    "404": {
+                        "description": "Banco não encontrado"
+                    }
+                }
+            }
+        },
+        "/api/v1/banks/delete/all": {
+            "delete": {
+                "tags": [
+                    "Banks"
+                ],
+                "summary": "Remove todos os bancos",
+                "operationId": "a004d5fdc092ca26c29940ba5e642cf1",
+                "responses": {
+                    "200": {
+                        "description": "Todos os bancos foram removidos"
+                    }
+                }
+            }
+        },
+        "/api/v1/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Lista todas as categorias",
+                "operationId": "d9bf255011b42d56bf306832dc3366c8",
+                "responses": {
+                    "200": {
+                        "description": "Categorias listadas com sucesso"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Cria uma nova categoria",
+                "operationId": "48c0023d8254ba5b000ad162026a1ef1",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "icon_id"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "icon_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Categoria criada com sucesso"
+                    }
+                }
+            }
+        },
+        "/api/v1/categories/with-user": {
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Cria uma nova categoria vinculada a um usuário",
+                "operationId": "84cf640e21f780c818a207e7abab320d",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "icon_id"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "icon_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Categoria criada com sucesso"
+                    },
+                    "400": {
+                        "description": "Erro na solicitação"
+                    }
+                }
+            }
+        },
+        "/api/v1/categories/without-user": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Lista todas as categorias que não estão vinculadas a um usuário",
+                "operationId": "6d190597916adf7ce1e3cb7f35732369",
+                "responses": {
+                    "200": {
+                        "description": "Categorias listadas com sucesso"
+                    }
+                }
+            }
+        },
+        "/api/v1/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Recupera uma categoria específica pelo ID",
+                "operationId": "showCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da categoria",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoria recuperada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoria não encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Atualiza uma categoria existente",
+                "operationId": "a85a6c8ff85ebcaf43aaecc48fc4f15b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "icon_id"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "icon_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoria atualizada com sucesso"
+                    },
+                    "404": {
+                        "description": "Categoria não encontrada"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Remove uma categoria",
+                "operationId": "ae5cb8e79e90c032d135b59468e14efe",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoria removida com sucesso"
+                    },
+                    "404": {
+                        "description": "Categoria não encontrada"
+                    }
+                }
+            }
+        },
+        "/api/v1/categories/user/{id}": {
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Atualiza uma categoria com base no usuário autenticado",
+                "operationId": "8876fe92a7e3154db33d95f597b8ce25",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "icon_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoria atualizada com sucesso"
+                    },
+                    "404": {
+                        "description": "Categoria não encontrada"
+                    }
+                }
+            }
+        },
+        "/api/v1/categories/user": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Lista todas as categorias associadas ao usuário autenticado",
+                "operationId": "111c2aba5bc8112e55103a2a1facf71e",
+                "responses": {
+                    "200": {
+                        "description": "Lista de categorias do usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Category"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/goals/user": {
+            "get": {
+                "tags": [
+                    "Goals"
+                ],
+                "summary": "Lista todas as metas do usuário autenticado",
+                "operationId": "4414bcb0fc9616fc224ab2078d5b453a",
+                "responses": {
+                    "200": {
+                        "description": "Metas do usuário"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/goals/{id}": {
+            "get": {
+                "tags": [
+                    "Goals"
+                ],
+                "summary": "Busca uma meta específica pelo ID",
+                "operationId": "be77e120089c0eca42cfec5bde43dc91",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Meta encontrada"
+                    },
+                    "404": {
+                        "description": "Meta não encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Goals"
+                ],
+                "summary": "Atualiza uma meta existente",
+                "operationId": "aa1ece6b002c55429ef6015761ba5f9f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "category_id": {
+                                        "type": "string"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "total_amount": {
+                                        "type": "number"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Meta atualizada com sucesso"
+                    },
+                    "404": {
+                        "description": "Meta não encontrada ou não autorizada"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Goals"
+                ],
+                "summary": "Remove uma meta",
+                "operationId": "b816e7dc3db48e5c322c432078425c3f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Meta removida com sucesso"
+                    },
+                    "404": {
+                        "description": "Meta não encontrada ou não autorizada"
+                    }
+                }
+            }
+        },
+        "/api/v1/goals": {
+            "post": {
+                "tags": [
+                    "Goals"
+                ],
+                "summary": "Cria uma nova meta",
+                "operationId": "6127de0f82207012c84fda169fc40ff2",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "category_id",
+                                    "title",
+                                    "total_amount",
+                                    "end_date"
+                                ],
+                                "properties": {
+                                    "category_id": {
+                                        "type": "string"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "total_amount": {
+                                        "type": "number"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Meta criada com sucesso"
+                    }
+                }
+            }
+        },
+        "/api/v1/icons": {
+            "get": {
+                "tags": [
+                    "Icons"
+                ],
+                "summary": "Lista todos os ícones",
+                "operationId": "6d88fdccd1b7f2e01505a219b20290fe",
+                "responses": {
+                    "200": {
+                        "description": "Lista de ícones"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Icons"
+                ],
+                "summary": "Carrega e cria um novo ícone",
+                "operationId": "097013d386fceb6c53f9ec300ce3b118",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "icon",
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "icon": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Ícone criado com sucesso"
+                    }
+                }
+            }
+        },
+        "/api/v1/icons/name/{name}": {
+            "get": {
+                "tags": [
+                    "Icons"
+                ],
+                "summary": "Busca um ícone pelo nome",
+                "operationId": "4c005dbcffb40d49969545d34ee8373d",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ícone encontrado"
+                    },
+                    "404": {
+                        "description": "Ícone não encontrado"
+                    }
+                }
+            }
+        },
+        "/api/v1/icons/{id}": {
+            "get": {
+                "tags": [
+                    "Icons"
+                ],
+                "summary": "Busca um ícone pelo ID",
+                "operationId": "76d7fbbccd89126dbebccf881479aa32",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ícone encontrado"
+                    },
+                    "404": {
+                        "description": "Ícone não encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Icons"
+                ],
+                "summary": "Remove um ícone pelo ID",
+                "operationId": "5120ec8002fe7536c3df602fa6d15458",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ícone removido com sucesso"
+                    },
+                    "404": {
+                        "description": "Ícone não encontrado"
+                    }
+                }
+            }
+        },
+        "/api/v1/icons/delete/all": {
+            "delete": {
+                "tags": [
+                    "Icons"
+                ],
+                "summary": "Remove todos os ícones",
+                "operationId": "93838d791e6fa1adc843c4f6941ec83d",
+                "responses": {
+                    "200": {
+                        "description": "Todos os ícones foram removidos"
+                    }
+                }
+            }
+        },
+        "/api/v1/spending-limits/user": {
+            "get": {
+                "tags": [
+                    "SpendingLimits"
+                ],
+                "summary": "Lista todos os limites de gastos do usuário autenticado",
+                "operationId": "dbb20d38f79f0b48f59d64e2be799020",
+                "responses": {
+                    "200": {
+                        "description": "Limites de gastos listados com sucesso"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/spending-limits/{id}": {
+            "get": {
+                "tags": [
+                    "SpendingLimits"
+                ],
+                "summary": "Busca um limite de gastos específico pelo ID",
+                "operationId": "1a774a213680f1d88e00b17a9a90ab7c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Limite de gastos encontrado"
+                    },
+                    "404": {
+                        "description": "Limite de gastos não encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SpendingLimits"
+                ],
+                "summary": "Atualiza um limite de gastos existente",
+                "operationId": "aab5ec4c7286839de379e0a2480c0e50",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "category_id": {
+                                        "type": "string"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "total_amount": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Limite de gastos atualizado com sucesso"
+                    },
+                    "404": {
+                        "description": "Limite de gastos não encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SpendingLimits"
+                ],
+                "summary": "Remove um limite de gastos",
+                "operationId": "0c47eaa9915bc3b52a79016055c56492",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Limite de gastos removido com sucesso"
+                    },
+                    "404": {
+                        "description": "Limite de gastos não encontrado"
+                    }
+                }
+            }
+        },
+        "/api/v1/spending-limits": {
+            "post": {
+                "tags": [
+                    "SpendingLimits"
+                ],
+                "summary": "Cria um novo limite de gastos",
+                "operationId": "674417fc539f1d42381583fcf0d6cfc9",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "category_id",
+                                    "title",
+                                    "total_amount"
+                                ],
+                                "properties": {
+                                    "category_id": {
+                                        "type": "string"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "total_amount": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Limite de gastos criado com sucesso"
+                    }
+                }
+            }
+        },
+        "/api/v1/spending-limit-transactions/user": {
+            "get": {
+                "tags": [
+                    "SpendingLimitTransactions"
+                ],
+                "summary": "Lista todas as transações de limites de gastos do usuário autenticado",
+                "operationId": "903d511ca6ac600e4b3bd2f949b3f19d",
+                "responses": {
+                    "200": {
+                        "description": "Transações listadas com sucesso"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/spending-limit-transactions/{id}": {
+            "get": {
+                "tags": [
+                    "SpendingLimitTransactions"
+                ],
+                "summary": "Busca uma transação específica pelo ID",
+                "operationId": "31494ae8843437431864eee693edd993",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transação encontrada"
+                    },
+                    "404": {
+                        "description": "Transação não encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SpendingLimitTransactions"
+                ],
+                "summary": "Atualiza uma transação de limite de gastos existente",
+                "operationId": "a3e5fcf6ae93ef920ba8d7f0a823d2e6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "transaction_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "amount": {
+                                        "type": "number"
+                                    },
+                                    "is_expense": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Transação atualizada com sucesso"
+                    },
+                    "404": {
+                        "description": "Transação não encontrada ou não autorizada"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SpendingLimitTransactions"
+                ],
+                "summary": "Remove uma transação de limite de gastos",
+                "operationId": "ed3a63cdb7c11ab6f6328af81b87f526",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transação removida com sucesso"
+                    },
+                    "404": {
+                        "description": "Transação não encontrada ou não autorizada"
+                    }
+                }
+            }
+        },
+        "/api/v1/spending-limit-transactions": {
+            "post": {
+                "tags": [
+                    "SpendingLimitTransactions"
+                ],
+                "summary": "Cria uma nova transação de limite de gastos",
+                "operationId": "39b997a5a0107e96daf1ab9be507ffd3",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "transaction_date",
+                                    "amount",
+                                    "is_expense"
+                                ],
+                                "properties": {
+                                    "transaction_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "amount": {
+                                        "type": "number"
+                                    },
+                                    "is_expense": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Transação criada com sucesso"
+                    }
+                }
+            }
+        },
+        "/api/v1/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Lista todos os usuários",
+                "operationId": "3ab81e3f9b24b4f36ab08d72349ac632",
+                "responses": {
+                    "200": {
+                        "description": "Usuários listados com sucesso"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Cria um novo usuário",
+                "operationId": "ba548b97148bb5c0d8cab3bc3f128bfd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso"
+                    },
+                    "400": {
+                        "description": "Erro na solicitação"
+                    }
+                }
+            }
+        },
+        "/api/v1/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Busca um usuário pelo ID",
+                "operationId": "daaf7a6169ee9348c3fddb07778598ff",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Atualiza um usuário",
+                "operationId": "59e98fba99e974815e27979dd58e2175",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário atualizado com sucesso"
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    }
+                }
+            }
+        },
+        "/api/v1/users/social/upsert": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Cria ou atualiza um usuário com base em dados de autenticação social",
+                "operationId": "07640e8ee621186b2833987fa986217c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "properties": {
+                                            "user": {
+                                                "properties": {
+                                                    "email": {
+                                                        "type": "string"
+                                                    },
+                                                    "id": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "session": {
+                                                "properties": {
+                                                    "access_token": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário criado ou atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/users/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Efetua login de um usuário",
+                "operationId": "8d0c84b850f0cc589b9aba0f65fe89c7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login bem-sucedido"
+                    },
+                    "401": {
+                        "description": "Credenciais inválidas"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Bank": {
+                "title": "Bank",
+                "description": "Estrutura de dados representando um banco",
+                "properties": {
+                    "id": {
+                        "description": "ID do banco",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "description": "Nome do banco",
+                        "type": "string"
+                    },
+                    "icon_url": {
+                        "description": "URL do ícone do banco",
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "type": "object"
+            },
+            "Category": {
+                "title": "Category",
+                "description": "Representação de uma categoria",
+                "properties": {
+                    "id": {
+                        "description": "ID da categoria",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "description": "Nome da categoria",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "title": "User",
+                "description": "Estrutura de dados para um usuário",
+                "properties": {
+                    "id": {
+                        "description": "Identificador único do usuário",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "description": "Nome do usuário",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "Endereço de email do usuário",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Accounts",
+            "description": "Operações relacionadas a contas"
+        },
+        {
+            "name": "Banks",
+            "description": "Operações relacionadas a bancos"
+        },
+        {
+            "name": "Categories",
+            "description": "Operações relacionadas a categorias"
+        },
+        {
+            "name": "Goals",
+            "description": "Operações relacionadas a metas"
+        },
+        {
+            "name": "Icons",
+            "description": "Operações relacionadas a ícones"
+        },
+        {
+            "name": "SpendingLimits",
+            "description": "Operações relacionadas a limites de gastos"
+        },
+        {
+            "name": "SpendingLimitTransactions",
+            "description": "Operações relacionadas a transações de limites de gastos"
+        },
+        {
+            "name": "Users",
+            "description": "Operações relacionadas a usuários"
+        }
+    ]
+}
